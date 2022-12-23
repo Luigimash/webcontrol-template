@@ -43,6 +43,8 @@ body {
     color: var(--white);
     margin-block-start: 10px;
     margin-block-end: auto;
+    color: var(--white);
+    transition: color 0.4s;
 }
 
 #breakTimer {
@@ -52,4 +54,6 @@ body {
     color: var(--white);
     margin-block-start: 10px;
     margin-block-end: auto;
+    color: var(--white);
+    transition: color 0.4s;
 }

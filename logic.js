@@ -26,12 +26,14 @@ const SPREADSHEETID = '1Tme3Jjw46wLTV_obzmON0FB1e7vEam3JZvo_Ocnd8Vc';
 const fadeTime = 400;
 //Fade transition time in ms, used in setTimeout(). Make sure this matches the fade time in the css .root{} constants.
 
+
 //-----------------------------------------------------
 //GLOBAL VARIABLES (specific to use case of graphic)
 let gapiInited = false;
 let timeSet = false;
 let pauseTimer=false;
 let timerRef;
+let fadeTimer = false;
 let time = 0;
 /**
  * Callback after api.js is loaded.
@@ -97,7 +99,7 @@ function updateElements(response) {
     fadeTextChange('headerTxt',responseVals[0][0]);
 
     //next up text
-    document.getElementById('nextUpText').innerText=responseVals[1][0];
+    fadeTextChange('nextUpText',responseVals[1][0]);
 
     //Timer
     if (responseVals[4][0]== 'TRUE' && !timeSet) {
@@ -105,6 +107,7 @@ function updateElements(response) {
         timeSet=true;
         clearInterval(timerRef);
         timerRef = setInterval(startTimer,1000)
+        fadeTimer=false;
     } else if (responseVals[4][0]=='FALSE') {
         timeSet = false;
     }
@@ -126,8 +129,14 @@ function startTimer() {
     let out = '';
 
     if (time <= 0) {
-        document.getElementById('breakTimer').innerText = '0:00';
-        return;
+         if (!fadeTimer) {
+             document.getElementById('breakTimer').innerText = '0.00';
+             setTimeout(() => {
+                 fadeTextChange('breakTimer', '');
+                 fadeTimer = true;
+             }, 10000);
+         }
+         return;
     }
     if (sec < 10) {
         out = '' + min + ':0' + sec;
