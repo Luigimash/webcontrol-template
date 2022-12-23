@@ -1,0 +1,55 @@
+:root {
+    /* Define global variables */
+    --white: rgba(255,255,255,1);
+    --mainFont: Gotham;
+    --secondaryFont: Bison;
+    --fadeTransition: opacity 0.4s;
+}
+
+body {
+    background-image: url("src/Generic Logo Background.png");
+}
+
+.bodyClass {
+
+}
+
+.header {
+    position: fixed;
+    top:240px;
+    width: 1920px;
+}
+
+.subText {
+    position:fixed;
+    top:520px;
+    width:1920px;
+}
+
+#headerTxt {
+    text-align: center;
+    font-size: 60px;
+    font-family: var(--mainFont);
+    color: var(--white);
+    transition: color 0.4s;
+    /* Note: Transitions for fading in and out text (SPECIFICALLY TEXT) need to be done by using RGBA color and
+     * adjusting the alpha. Transition fading out divs/other objects can be done using opacity. */
+}
+
+#nextUpText {
+    text-align: center;
+    font-size: 40px;
+    font-family: var(--secondaryFont);
+    color: var(--white);
+    margin-block-start: 10px;
+    margin-block-end: auto;
+}
+
+#breakTimer {
+    text-align: center;
+    font-size: 60px;
+    font-family: var(--mainFont);
+    color: var(--white);
+    margin-block-start: 10px;
+    margin-block-end: auto;
+}
