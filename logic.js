@@ -11,7 +11,7 @@
 
 // TODO: check API key, spreadsheet ID, range name and range values, discovery doc, parse info
 //API key, need to change, make sure it works
-const API_KEY = 'AIzaSyB8Z6EN5KSENSfv2znEAdNRoupgcpwnEOM';
+const API_KEY = CFG_API_KEY;
 // Discovery doc URL for APIs used by the quickstart, it's apparently useful
 const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
 //Spreadsheet API call representation https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values
