@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body class="bodyClass">
+    <video width="1920px" autoplay>
+        <source src="src/Stars_transpWEBM.webm">
+    </video>
+    <!--Above code causes transparent webM playback in OBS browser source, but not in google chrome-->
     <div class="header">
         <h1 id="headerTxt">
             headerText_NOTPULLED
@@ -21,6 +25,16 @@
 
         </h1>
     </div>
+    <div id="casterBubbles">
+        <img src="src/2casters.png" style="position:relative">
+        <div id="casterTxtContainer">
+            <h1 class="casterNameplate" id="cast1">caster1</h1>
+            <div style="width:110px;display:inline-block;"></div>
+            <h1 class="casterNameplate" id="cast2">caster2</h1>
+        </div>
+    </div>
+
+    <!--SCRIPTS-->
     <script type='text/javascript' src='config.js'></script>
     <script src="logic.js"></script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>

@@ -65,7 +65,7 @@ async function getSheetsValue() {
         response = await gapi.client.sheets.spreadsheets.values.get({
             //When changing sheets, update sheetID, and update the sheet name when updating range
             spreadsheetId: SPREADSHEETID,
-            range: 'GFX Controller!C5:D10',
+            range: 'GFX Controller!C5:D15',
         });
     } catch(err) {
         //error check
@@ -103,10 +103,11 @@ function updateElements(response) {
 
     //Timer
     if (responseVals[4][0]== 'TRUE' && !timeSet) {
-        time = (parseInt(responseVals[3][0])*60) + parseInt(responseVals[3][1]);
+        time = (parseInt(responseVals[3][0])*60) + parseInt(responseVals[3][1] + 1);
         timeSet=true;
+
         clearInterval(timerRef);
-        timerRef = setInterval(startTimer,1000)
+        timerRef = setInterval(startTimer,1000);
         fadeTimer=false;
     } else if (responseVals[4][0]=='FALSE') {
         timeSet = false;
@@ -117,7 +118,22 @@ function updateElements(response) {
     else {
         pauseTimer = false;
     }
-    return;
+
+    //Casters 2box text
+    fadeTextChange('cast1',responseVals[9][0]);
+    fadeTextChange('cast2',responseVals[9][1]);
+
+    //Caster nameplates up/down
+    if (responseVals[10][0]=='TRUE') {
+        document.getElementById('casterBubbles').style.top='0px';
+    }
+    else if (responseVals[10][0]=='FALSE'){
+        document.getElementById('casterBubbles').style.top='450px';
+    }
+    else {
+        console.log("Error in detecting TRUE/FALSE condition in caster 2box pull up/down");
+    }
+
 }
 
 function startTimer() {
@@ -130,7 +146,7 @@ function startTimer() {
 
     if (time <= 0) {
          if (!fadeTimer) {
-             document.getElementById('breakTimer').innerText = '0.00';
+             document.getElementById('breakTimer').innerText = '0:00';
              setTimeout(() => {
                  fadeTextChange('breakTimer', '');
                  fadeTimer = true;
@@ -143,6 +159,12 @@ function startTimer() {
     }
     else {
         out = '' + min + ':' + sec;
+    }
+
+    console.log(document.getElementById('breakTimer').textContent);
+    if (document.getElementById('breakTimer').textContent.trim()=='') {
+        fadeTextChange('breakTimer',out);
+        return;
     }
     document.getElementById('breakTimer').innerText = out;
 }

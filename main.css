@@ -3,16 +3,19 @@
     --white: rgba(255,255,255,1);
     --mainFont: Gotham;
     --secondaryFont: Bison;
-    --fadeTransition: opacity 0.4s;
+    --fadeTransition: color 0.4s;
 }
 
 body {
     background-image: url("src/Generic Logo Background.png");
+    width:100%;
+    height:100%;
 }
 
 .bodyClass {
 
 }
+
 
 .header {
     position: fixed;
@@ -26,12 +29,21 @@ body {
     width:1920px;
 }
 
+.casterNameplate { /*only using this to sync font and color between caster nameplates*/
+    /*position:relative;*/
+    font-family: Gotham;
+    font-size: 64px;
+    color:var(--white);
+    text-align:center;
+}
+
+
 #headerTxt {
     text-align: center;
     font-size: 60px;
     font-family: var(--mainFont);
     color: var(--white);
-    transition: color 0.4s;
+    transition: var(--fadeTransition);
     /* Note: Transitions for fading in and out text (SPECIFICALLY TEXT) need to be done by using RGBA color and
      * adjusting the alpha. Transition fading out divs/other objects can be done using opacity. */
 }
@@ -44,7 +56,7 @@ body {
     margin-block-start: 10px;
     margin-block-end: auto;
     color: var(--white);
-    transition: color 0.4s;
+    transition: var(--fadeTransition);
 }
 
 #breakTimer {
@@ -55,5 +67,34 @@ body {
     margin-block-start: 10px;
     margin-block-end: auto;
     color: var(--white);
-    transition: color 0.4s;
+    transition: var(--fadeTransition);
+}
+
+#casterBubbles {
+    position:fixed;
+    top:450px;
+    transition: top 1s ease-in-out;
+    justify-content: center;
+}
+
+#cast1 {
+    display: inline-block;
+    width:700px;
+    color:var(--white);
+    transition: var(--fadeTransition);
+}
+
+#cast2 {
+    display: inline-block;
+    width:700px;
+    color:var(--white);
+    transition: var(--fadeTransition);
+}
+
+#casterTxtContainer {
+    display:flex;
+    justify-content: center;
+    position:absolute;
+    bottom:29px;
+    width:100%;
 }
