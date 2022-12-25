@@ -8,7 +8,6 @@
  *
  * HIGHLY RECOMMEND SELECTING "Shutdown source when not visible" in OBS.
  */
-
 // TODO: check API key, spreadsheet ID, range name and range values, discovery doc, parse info
 //API key, need to change, make sure it works
 const API_KEY = CFG_API_KEY;
@@ -24,7 +23,16 @@ const SPREADSHEETID = '1Tme3Jjw46wLTV_obzmON0FB1e7vEam3JZvo_Ocnd8Vc';
 //update sheet name in the Range definitions
 
 const fadeTime = 400;
-//Fade transition time in ms, used in setTimeout(). Make sure this matches the fade time in the css .root{} constants.
+//Fade transition time in ms, used in setTimeout(). Make sure this matches the fade time in the css .root{} constants.\
+
+const TIMER_ELEMENT = 'breakTimer';
+
+//COLORS CONSTANTS
+const cWhite = [255,255,255];
+const cBlack = [0,0,0];
+const cUWYellow=[247,202,0];
+const ON = '1'; //alpha codes, for clarity when reading code
+const OFF = '0';
 
 
 //-----------------------------------------------------
@@ -96,14 +104,14 @@ function updateElements(response) {
     let responseVals = response.result.values;
     let currentTimer;
     //header
-    fadeTextChange('headerTxt',responseVals[0][0]);
+    fadeTextChange('headerTxt',responseVals[0][0],cWhite);
 
     //next up text
-    fadeTextChange('nextUpText',responseVals[1][0]);
+    fadeTextChange('nextUpText',responseVals[1][0],cBlack);
 
     //Timer
     if (responseVals[4][0]== 'TRUE' && !timeSet) {
-        time = (parseInt(responseVals[3][0])*60) + parseInt(responseVals[3][1] + 1);
+        time = (parseInt(responseVals[3][0])*60) + parseInt(responseVals[3][1]) + 1;
         timeSet=true;
 
         clearInterval(timerRef);
@@ -120,8 +128,8 @@ function updateElements(response) {
     }
 
     //Casters 2box text
-    fadeTextChange('cast1',responseVals[9][0]);
-    fadeTextChange('cast2',responseVals[9][1]);
+    fadeTextChange('cast1',responseVals[9][0],cWhite);
+    fadeTextChange('cast2',responseVals[9][1],cWhite);
 
     //Caster nameplates up/down
     if (responseVals[10][0]=='TRUE') {
@@ -146,9 +154,9 @@ function startTimer() {
 
     if (time <= 0) {
          if (!fadeTimer) {
-             document.getElementById('breakTimer').innerText = '0:00';
+             document.getElementById(TIMER_ELEMENT).innerText = '0:00';
              setTimeout(() => {
-                 fadeTextChange('breakTimer', '');
+                 fadeTextChange(TIMER_ELEMENT, '',cWhite);
                  fadeTimer = true;
              }, 10000);
          }
@@ -161,26 +169,37 @@ function startTimer() {
         out = '' + min + ':' + sec;
     }
 
-    console.log(document.getElementById('breakTimer').textContent);
-    if (document.getElementById('breakTimer').textContent.trim()=='') {
-        fadeTextChange('breakTimer',out);
+    console.log(document.getElementById(TIMER_ELEMENT).textContent);
+    if (document.getElementById(TIMER_ELEMENT).textContent.trim()=='') {
+        fadeTextChange(TIMER_ELEMENT,out,cUWYellow);
         return;
     }
-    document.getElementById('breakTimer').innerText = out;
+    document.getElementById(TIMER_ELEMENT).innerText = out;
 }
 
-async function fadeTextChange(elementID, newText) { //async so it doesn't delay the function that calls it
+async function fadeTextChange(elementID, newText, color) { //async so it doesn't delay the function that calls it
     let doc = document.getElementById(elementID);
 
     if (doc.textContent == newText) {
         //use textContent to compare element text, as it removes whitespace/hidden characters related to HTML tags
         return;
     }
-    doc.style.color = 'rgba(255,255,255,0)';
-    setTimeout(function() {
-        doc.innerText = newText;
-        doc.style.color = 'rgba(255,255,255,1)';
+
+    //Turn color into rgba for CSS
+    let clrOut = '' + color[0] + ',' + color[1] + ',' + color[2] + ',';
+
+    doc.style.transition = 'color ' + fadeTime + 'ms';
+    doc.style.color = 'rgba(' + clrOut + OFF + ')';
+    setTimeout(function () {
+            doc.innerText = newText;
+            doc.style.color = 'rgba(' + clrOut + ON + ')';
         },
         fadeTime);
+
+    setTimeout(()=> {
+        doc.style.transition = '';},2*fadeTime);
+
     return;
+    /* Note: Transitions for fading in and out text (SPECIFICALLY TEXT) need to be done by using RGBA color and
+ * adjusting the alpha. Transition fading out divs/other objects can be done using opacity. */
 }

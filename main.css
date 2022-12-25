@@ -3,8 +3,8 @@
     --white: rgba(255,255,255,1);
     --mainFont: Gotham;
     --secondaryFont: Bison;
-    --fadeTransition: color 0.4s;
 }
+
 
 body {
     background-image: url("src/Generic Logo Background.png");
@@ -43,9 +43,6 @@ body {
     font-size: 60px;
     font-family: var(--mainFont);
     color: var(--white);
-    transition: var(--fadeTransition);
-    /* Note: Transitions for fading in and out text (SPECIFICALLY TEXT) need to be done by using RGBA color and
-     * adjusting the alpha. Transition fading out divs/other objects can be done using opacity. */
 }
 
 #nextUpText {
@@ -56,7 +53,6 @@ body {
     margin-block-start: 10px;
     margin-block-end: auto;
     color: var(--white);
-    transition: var(--fadeTransition);
 }
 
 #breakTimer {
@@ -67,7 +63,6 @@ body {
     margin-block-start: 10px;
     margin-block-end: auto;
     color: var(--white);
-    transition: var(--fadeTransition);
 }
 
 #casterBubbles {
@@ -81,14 +76,12 @@ body {
     display: inline-block;
     width:700px;
     color:var(--white);
-    transition: var(--fadeTransition);
 }
 
 #cast2 {
     display: inline-block;
     width:700px;
     color:var(--white);
-    transition: var(--fadeTransition);
 }
 
 #casterTxtContainer {
