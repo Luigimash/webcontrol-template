@@ -1,3 +1,6 @@
+/* Highly recommend reading https://css-tricks.com/snippets/css/a-guide-to-flexbox/ to understand orienting elements
+according to Flexbox */
+
 :root {
     /* Define global variables */
     --white: rgba(255,255,255,1);

@@ -9,23 +9,8 @@
  * HIGHLY RECOMMEND SELECTING "Shutdown source when not visible" in OBS.
  */
 // TODO: check API key, spreadsheet ID, range name and range values, discovery doc, parse info
-//API key, need to change, make sure it works
-const API_KEY = CFG_API_KEY;
-// Discovery doc URL for APIs used by the quickstart, it's apparently useful
-const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
-//Spreadsheet API call representation https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values
-
-/*PULLRATE is how often (ms) info from the google sheet will be pulled. Max 1000ms, as google will start rate limiting
- * past 60 calls/second. */
-const PULLRATE = 2000;
-
-const SPREADSHEETID = '1Tme3Jjw46wLTV_obzmON0FB1e7vEam3JZvo_Ocnd8Vc';
-//update sheet name in the Range definitions
-
 const fadeTime = 400;
 //Fade transition time in ms, used in setTimeout(). Make sure this matches the fade time in the css .root{} constants.\
-
-const TIMER_ELEMENT = 'breakTimer';
 
 //COLORS CONSTANTS
 const cWhite = [255,255,255];
